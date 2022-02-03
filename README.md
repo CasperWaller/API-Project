@@ -28,6 +28,9 @@ None so far
 
 - camelCase
 
+## To do
+
+
 ## Contributors
 
 Då bedömning ännu ej är gjord på uppgiften så tillåts inga pull requests. Så fort bedömning är gjord kommer detta tillåtas.
