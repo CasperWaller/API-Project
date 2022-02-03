@@ -1,25 +1,37 @@
+from unicodedata import category
 import requests
+import time
 
 def question():
-    difficulty = input("What difficulty?  ")
-    response = requests.get('https://opentdb.com/api.php?amount=10&difficulty='+ difficulty +'&type=multiple')
+    difficultyLevel = input("What difficulty? [lower case letters only]  ")
+    #if difficultyLevel != 'easy' or difficultyLevel != 'medium' or difficultyLevel != 'hard':
+    #    print('Difficulty not available')
+    categoryDict = requests.get('https://opentdb.com/api_category.php').json()
+    for i in range(24):
+        categoryName = categoryDict["trivia_categories"][i]['name']
+        categoryId = categoryDict["trivia_categories"][i]['id']
+        print(str(categoryName) + ' - ' + str(categoryId))
+    response = requests.get('https://opentdb.com/api.php?amount=10&difficulty='+ difficultyLevel +'&type=multiple')
     q = response.json()
     for i in range(10):
         questio = q['results'][i]['question'].replace('&quot;', '\"')
         questio = questio.replace('&#039;', '\'')
-        print(questio)
-        if i == 10:
+
+        time.sleep(1)
+        if i == 9:
             print("Last question!  ")
+        print(questio)
         answer(q, i)
 
 
 def answer(q, i):
-    r_answer = 0
-    answer = input('')
+    correctAnswer = 0
+    answer = input('Your answer: ')
     if answer == q['results'][i]['correct_answer']:
-        print("Right answer!")
-        r_answer += 1
+        print("Correct answer!")
+        correctAnswer += 1
     else:
-        print("Wrong!")
-        print(q['results'][i]['correct_answer'])
+        print("Incorrect answer!")
+        print('The correct answer is ' + q['results'][i]['correct_answer'])
+    print(str(correctAnswer) + '/' + str(i+1))
 question()
