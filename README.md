@@ -1,4 +1,4 @@
-# Project Title
+# Trivia game
 
 A trivia game created with python and a trivia API
 
@@ -11,6 +11,10 @@ This program is a simulation of a trivia game. In this program you can choose be
 ### Installation instructions
 
 The program requires python (created in version 3.8.5 32-bit)
+
+```bash
+pip install requests
+```
 
 ### Test run
 
@@ -26,7 +30,14 @@ None so far
 
 ## Contributors
 
+Då bedömning ännu ej är gjord på uppgiften så tillåts inga pull requests. Så fort bedömning är gjord kommer detta tillåtas.
+Vid större förändringar önskar jag att en issue öppnas för diskussion om vad som ska förändras.
+
 - Casper Waller
 - Bernard Rumar
+
+## License
+
+MIT
 
 ## Citation
