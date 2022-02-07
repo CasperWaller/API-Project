@@ -2,36 +2,52 @@ from unicodedata import category
 import requests
 import time
 
-def question():
-    difficultyLevel = input("What difficulty? [lower case letters only]  ")
-    #if difficultyLevel != 'easy' or difficultyLevel != 'medium' or difficultyLevel != 'hard':
-    #    print('Difficulty not available')
-    categoryDict = requests.get('https://opentdb.com/api_category.php').json()
-    for i in range(24):
-        categoryName = categoryDict["trivia_categories"][i]['name']
-        categoryId = categoryDict["trivia_categories"][i]['id']
-        print(str(categoryName) + ' - ' + str(categoryId))
-    response = requests.get('https://opentdb.com/api.php?amount=10&difficulty='+ difficultyLevel +'&type=multiple')
-    q = response.json()
-    for i in range(10):
-        questio = q['results'][i]['question'].replace('&quot;', '\"')
-        questio = questio.replace('&#039;', '\'')
+class Player:
 
-        time.sleep(1)
-        if i == 9:
-            print("Last question!  ")
-        print(questio)
-        answer(q, i)
+    def __init__(self):
+        self.correctAnswer = 0
+
+    def question(self):
+        difficultyLevel = input("What difficulty? [lower case letters only]  ")
+        questionAmount = int(input("How many questions do you want?  "))
+        while questionAmount < 1 or questionAmount > 50:
+            questionAmount = int(input("How many questions do you want?  "))
+            
+        #if difficultyLevel != 'easy' or difficultyLevel != 'medium' or difficultyLevel != 'hard':
+        #    print('Difficulty not available')
+        categoryDict = requests.get('https://opentdb.com/api_category.php').json()
+        for i in range(24):
+            categoryName = categoryDict["trivia_categories"][i]['name']
+            categoryId = categoryDict["trivia_categories"][i]['id']
+            if categoryId in [10, 13, 14, 18, 20, 25, 26, 28, 29, 30, 31, 32]:
+                continue
+            print(str(categoryName) + ' - ' + str(categoryId))
+        categoryChoice = input("What category do you want to choose?  ")
+
+        response = requests.get('https://opentdb.com/api.php?amount=' + str(questionAmount) + '&category=' + categoryChoice + '&difficulty=' + difficultyLevel + '&type=multiple')
+        q = response.json()
+        for i in q['results']:
+            questio = i['question'].replace('&quot;', '\"').replace('&#039;', '\'')
+
+            time.sleep(1)
+            if i == 9:
+                print("Last question!  ")
+            print(questio)
+            self.answer(q, i)
+
+    choices = i['incorrect_answer']
+    choices = choices.append(i['correct_answer'])
 
 
-def answer(q, i):
-    correctAnswer = 0
-    answer = input('Your answer: ')
-    if answer == q['results'][i]['correct_answer']:
-        print("Correct answer!")
-        correctAnswer += 1
-    else:
-        print("Incorrect answer!")
-        print('The correct answer is ' + q['results'][i]['correct_answer'])
-    print(str(correctAnswer) + '/' + str(i+1))
-question()
+    def answer(self, q, i):
+        answer = input('Your answer: ')
+        if answer == i['correct_answer']:
+            print("Correct answer!")
+            self.correctAnswer += 1
+        else:
+            print("Incorrect answer!")
+            print('The correct answer is ' + i['correct_answer'])
+        print(str(self.correctAnswer) + '/10')
+
+player_1 = Player()
+player_1.question()
