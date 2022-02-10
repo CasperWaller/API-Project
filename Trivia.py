@@ -1,11 +1,13 @@
 from unicodedata import category
 import requests
 import time
+import random
 
 class Player:
 
     def __init__(self):
         self.correctAnswer = 0
+        self.questionCount = 0
 
     def question(self):
         difficultyLevel = input("What difficulty? [lower case letters only]  ")
@@ -29,25 +31,50 @@ class Player:
         for i in q['results']:
             questio = i['question'].replace('&quot;', '\"').replace('&#039;', '\'')
 
-            time.sleep(1)
+            time.sleep(.5)
             if i == 9:
                 print("Last question!  ")
             print(questio)
-            self.answer(q, i)
 
-    choices = i['incorrect_answer']
-    choices = choices.append(i['correct_answer'])
+            choices = i['incorrect_answers']
+            choices.append(i['correct_answer'])
+            random.shuffle(choices)
+            time.sleep(2.5)
+            for n in range(4):
+                time.sleep(.3)
+                print(str(n+1) + '. ' + choices[n])
+
+            self.answer(i, choices)
 
 
-    def answer(self, q, i):
-        answer = input('Your answer: ')
-        if answer == i['correct_answer']:
+    def answer(self, i, choices):
+        answer = int(input('Your answer: '))
+        if choices[(answer-1)] == i['correct_answer']:
             print("Correct answer!")
             self.correctAnswer += 1
+            self.questionCount += 1
         else:
             print("Incorrect answer!")
             print('The correct answer is ' + i['correct_answer'])
-        print(str(self.correctAnswer) + '/10')
+            self.questionCount += 1
+        print(str(self.correctAnswer) + '/' + str(self.questionCount))
+
+class Bot(Player):
+    def __init__(self):
+        self.correctAnswer = 0
+        self.questionCount = 0
+
+    def randomGuessing(self, i, correctAnswer, questionAnswer):
+        guess = random.randint(1,4)
+        if guess == i['correct_answer']:
+            correctAnswer += 1
+            questionAnswer += 1
+            print('The bot got the question right')
+        else:
+            print('The bot got the question wrong')
+            questionAnswer += 1
 
 player_1 = Player()
 player_1.question()
+bot_1 = Bot()
+bot_1.randomGuessing()
