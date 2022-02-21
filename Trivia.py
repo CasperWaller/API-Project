@@ -56,7 +56,7 @@ class Bot():
         print('The bots turn')
         time.sleep(0.2)
         for i in q['results']:
-            questio = i['question'].replace('&quot;', '\"').replace('&#039;', '\'')
+            questio = i['question'].replace('&quot;', '\"').replace('&#039;', '\'').replace('&amp;', '&')
 
             time.sleep(.5)
             
@@ -97,27 +97,39 @@ player_1 = Player()
 bot_1 = Bot()
 
 def main():
+    versusbot = int(input("Do you want to play against a bot?"))
     difficultyLevel = input("What difficulty? [lower case letters only]  ")
-    questionAmount = int(input("How many questions do you want?  "))
-    
-    categoryDict = requests.get('https://opentdb.com/api_category.php').json()
-    for i in range(24):
-        categoryName = categoryDict["trivia_categories"][i]['name']
-        categoryId = categoryDict["trivia_categories"][i]['id']
-        if categoryId in [10, 13, 14, 18, 20, 25, 26, 28, 29, 30, 31, 32]:
-            continue
-        print(str(categoryName) + ' - ' + str(categoryId))
-        time.sleep(0.3)
-    categoryChoice = int(input("What category do you want to choose?  "))
-    while questionAmount < 1 or questionAmount > 50:
+    if difficultyLevel == "easy" or difficultyLevel == "medium" or difficultyLevel == "hard":
+
         questionAmount = int(input("How many questions do you want?  "))
-    
-    player_1.question(difficultyLevel, questionAmount, categoryChoice)
-    bot_1.question(difficultyLevel, questionAmount, categoryChoice)
-    if bot_1.correctAnswer > player_1.correctAnswer:
-        print("The bot won and got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount) + " while you got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
-    elif player_1.correctAnswer > bot_1.correctAnswer:
-        print("You won and got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount) + " while the bot got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount))
-    elif player_1.correctAnswer == bot_1.correctAnswer:
-        print("You drew with the bot, both got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
-main()
+        if questionAmount <= 50 and questionAmount > 0:
+        
+            categoryDict = requests.get('https://opentdb.com/api_category.php').json()
+            for i in range(24):
+                categoryName = categoryDict["trivia_categories"][i]['name']
+                categoryId = categoryDict["trivia_categories"][i]['id']
+                if categoryId in [10, 13, 14, 18, 20, 25, 26, 28, 29, 30, 31, 32]:
+                    continue
+                print(str(categoryName) + ' - ' + str(categoryId))
+                time.sleep(0.3)
+            categoryChoice = int(input("What category do you want to choose?  "))
+            while questionAmount < 1 or questionAmount > 50:
+                questionAmount = int(input("How many questions do you want?  "))
+            player_1.question(difficultyLevel, questionAmount, categoryChoice)
+            if versusbot == 1:
+                bot_1.question(difficultyLevel, questionAmount, categoryChoice)
+            else:
+                print("You chose not to versus a bot")
+            if bot_1.correctAnswer > player_1.correctAnswer and versusbot == '1':
+                print("The bot won and got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount) + " while you got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
+            elif player_1.correctAnswer > bot_1.correctAnswer and versusbot == '1':
+                print("You won and got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount) + " while the bot got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount))
+            elif player_1.correctAnswer == bot_1.correctAnswer and versusbot == '1':
+                print("You drew with the bot, both got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
+        else:
+            print("Please enter a number between one and 50")
+            return False
+        return True
+        
+while not main():
+    print("Enter either 'easy', 'medium' or 'hard'")
