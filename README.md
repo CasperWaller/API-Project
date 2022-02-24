@@ -36,8 +36,9 @@ None so far
 Då bedömning ännu ej är gjord på uppgiften så tillåts inga pull requests. Så fort bedömning är gjord kommer detta tillåtas.
 Vid större förändringar önskar jag att en issue öppnas för diskussion om vad som ska förändras.
 
-- Casper Waller
-- Bernard Rumar
+- [Bern4rdR](https://github.com/Bern4rdR)
+- [Alucad0](https://github.com/Alucad0)
+- [Nilund93](https://github.com/Nilund93)
 
 ## License
 
