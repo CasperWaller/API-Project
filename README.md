@@ -24,12 +24,10 @@ pip install requests
 
 ### Test run
 
-When you run the program, the computer will ask you what difficulty you want the questions to be. You can either choose easy, medium or hard. The question pops up and you answer it, if you answer correctly you get a message that says "Correct answer!". If you answer incorrectly you get a message that says "Incorrect answer!" and the correct answer will show up. There will be 10 different questions.
+```
+Do you want to play against a bot?  YeS
 
-```powershell
-Do you want to play against a bot?  yes
-
-What difficulty?  easy
+What difficulty?  EaSy
 
 How many questions do you want? [numbers only] 2
 
@@ -53,6 +51,7 @@ What do the letters in the GMT time zone stand for?
 2. General Median Time
 3. Glasgow Man Time
 4. Greenwich Mean Time
+
 Your answer: 4
 Correct answer!
 You got 1/1 questions correct
