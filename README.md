@@ -104,11 +104,12 @@ None so far
 
 ## To do
 
+- Creating a difficulty for the bot (higher chance to guess the right answer)
+- Graphic design
 
 ## Contributors
 
-Då bedömning ännu ej är gjord på uppgiften så tillåts inga pull requests. Så fort bedömning är gjord kommer detta tillåtas.
-Vid större förändringar önskar jag att en issue öppnas för diskussion om vad som ska förändras.
+Due to the fact that this project has not been graded yet, there will be no pull requests allowed. When the grading is done, this will be allowed. For more significant changes I wish for an issue to be opened for a discussion about what will be changed.
 
 - [Bern4rdR](https://github.com/Bern4rdR)
 - [Alucad0](https://github.com/Alucad0)
@@ -118,4 +119,7 @@ Vid större förändringar önskar jag att en issue öppnas för diskussion om v
 
 MIT
 
-## Citation
+## Contact
+- Author: Casper Waller (CasperWaller)
+  - E-mail: casper.n.waller@gmail.com
+  - Phonenumber: +46 72 328 05 55
