@@ -104,6 +104,7 @@ None so far
 
 ## To do
 
+- ~~Creating a bot~~
 - Creating a difficulty for the bot (higher chance to guess the right answer)
 - Graphic design
 
