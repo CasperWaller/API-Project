@@ -9,17 +9,17 @@ class Player:
         self.correctAnswer = 0
         self.questionCount = 0
 
-    def question(self, difficultyLevel, questionAmount, categoryChoice):           
+    def questions(self, difficultyLevel, questionAmount, categoryChoice):           
         response = requests.get('https://opentdb.com/api.php?amount=' + str(questionAmount) + '&category=' + str(categoryChoice) + '&difficulty=' + difficultyLevel + '&type=multiple')
         q = response.json()
         for i in q['results']:
             # Searching for unreadable UTF-8 symbols and replaces them with backslashes
-            questio = i['question'].replace('&quot;', '\"').replace('&#039;', '\'').replace('&amp;', '&')
+            question = i['question'].replace('&quot;', '\"').replace('&#039;', '\'').replace('&amp;', '&')
 
             time.sleep(.5)
             if i == (questionAmount - 1):
                 print("Last question!  ")
-            print(questio)
+            print(question)
             time.sleep(1)
             # Putting the correct and incorrect answers in a list
             choices = i['incorrect_answers']
@@ -60,19 +60,19 @@ class Bot():
         self.correctAnswer = 0
         self.questionCount = 0
 
-    def question(self, difficultyLevel, questionAmount, categoryChoice):           
+    def questions(self, difficultyLevel, questionAmount, categoryChoice):           
         response = requests.get('https://opentdb.com/api.php?amount=' + str(questionAmount) + '&category=' + str(categoryChoice) + '&difficulty=' + difficultyLevel + '&type=multiple')
         q = response.json()
         print('The bots turn')
         time.sleep(0.2)
         for i in q['results']:
-            questio = i['question'].replace('&quot;', '\"').replace('&#039;', '\'').replace('&amp;', '&').replace('&rsquo;', "'")
+            question = i['question'].replace('&quot;', '\"').replace('&#039;', '\'').replace('&amp;', '&').replace('&rsquo;', "'")
 
             time.sleep(.5)
             
             if i == 9:
                 print("Last question!  ")
-            print(questio)
+            print(question)
 
             choices = i['incorrect_answers']
             choices.append(i['correct_answer'])
@@ -88,11 +88,13 @@ class Bot():
 
     def randomGuessing(self, i, choices):
         guess = random.randint(1,4)
+        
         if choices[(guess-1)] == i['correct_answer']:
             self.correctAnswer += 1
             self.questionCount += 1
             print("The bot answered: " + choices[(guess-1)])
             print('The bot got the question right')
+        
         else:
             print("The bot answered: " + choices[(guess-1)])
             time.sleep(1.6)
@@ -101,6 +103,7 @@ class Bot():
             print('The correct answer is ' + i['correct_answer'])
             self.questionCount += 1
             time.sleep(1.6)
+        
         print('The bot got ' + str(self.correctAnswer) + '/' + str(self.questionCount) + ' questions correct')
 
 player_1 = Player()
@@ -109,9 +112,10 @@ bot_1 = Bot()
 def main():
     versusbot = str(input("Do you want to play against a bot?  "))
     difficultyLevel = input("What difficulty?  ")
+    
     if difficultyLevel.lower() in ["easy","medium","hard"]:
-
         questionAmount = int(input("How many questions do you want? [numbers only] "))
+        
         if questionAmount <= 50 and questionAmount > 0:
         
             categoryDict = requests.get('https://opentdb.com/api_category.php').json()
@@ -122,10 +126,12 @@ def main():
                     continue
                 print(str(categoryName) + ' - ' + str(categoryId))
                 time.sleep(0.3)
+
             categoryChoice = int(input("What category do you want to choose?  "))
             while questionAmount < 1 or questionAmount > 50:
                 questionAmount = int(input("How many questions do you want?  "))
             player_1.question(difficultyLevel, questionAmount, categoryChoice)
+            
             if versusbot.lower() in ["yes", "y", "yeah"]:
                 bot_1.question(difficultyLevel, questionAmount, categoryChoice)
             else:
@@ -136,6 +142,7 @@ def main():
                 print("You won and got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount) + " while the bot got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount))
             elif player_1.correctAnswer == bot_1.correctAnswer and versusbot.lower() in ["yes", "y", "yeah"]:
                 print("You drew with the bot, both got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
+        
         else:
             print("Please enter a number between one and 50")
             return False
