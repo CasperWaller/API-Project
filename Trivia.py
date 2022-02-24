@@ -13,21 +13,25 @@ class Player:
         response = requests.get('https://opentdb.com/api.php?amount=' + str(questionAmount) + '&category=' + str(categoryChoice) + '&difficulty=' + difficultyLevel + '&type=multiple')
         q = response.json()
         for i in q['results']:
-            questio = i['question'].replace('&quot;', '\"').replace('&#039;', '\'')
+            # Searching for unreadable UTF-8 symbols and replaces them with backslashes
+            questio = i['question'].replace('&quot;', '\"').replace('&#039;', '\'').replace('&amp;', '&')
 
             time.sleep(.5)
             if i == (questionAmount - 1):
                 print("Last question!  ")
             print(questio)
             time.sleep(1)
+            # Putting the correct and incorrect answers in a list
             choices = i['incorrect_answers']
             choices.append(i['correct_answer'])
+            # Shuffling the list to prevent the right answer from being in the same index every time
             random.shuffle(choices)
 
             time.sleep(2.5)
             
             for n in range(4):
                 time.sleep(.3)
+                # Printing the choices with a designated number
                 print(str(n+1) + '. ' + choices[n])
 
             self.answer(i, choices)
@@ -43,8 +47,14 @@ class Player:
             print('The correct answer is ' + i['correct_answer'])
             self.questionCount += 1
         
-        print(str(self.correctAnswer) + '/' + str(self.questionCount))
+        # Printing the amount of correct answers out of the amount of questions you've answered
+        print('You got ' + str(self.correctAnswer) + '/' + str(self.questionCount) + ' questions correct')
 
+
+"""
+The same principles go for the bot, some things are changed. 
+The bot randomly selects an answer while the player manually selects an answer
+"""
 class Bot():
     def __init__(self):
         self.correctAnswer = 0
@@ -56,7 +66,7 @@ class Bot():
         print('The bots turn')
         time.sleep(0.2)
         for i in q['results']:
-            questio = i['question'].replace('&quot;', '\"').replace('&#039;', '\'').replace('&amp;', '&')
+            questio = i['question'].replace('&quot;', '\"').replace('&#039;', '\'').replace('&amp;', '&').replace('&rsquo;', "'")
 
             time.sleep(.5)
             
@@ -91,17 +101,17 @@ class Bot():
             print('The correct answer is ' + i['correct_answer'])
             self.questionCount += 1
             time.sleep(1.6)
-        print(str(self.correctAnswer) + '/' + str(self.questionCount))
+        print('The bot got ' + str(self.correctAnswer) + '/' + str(self.questionCount) + ' questions correct')
 
 player_1 = Player()
 bot_1 = Bot()
 
 def main():
-    versusbot = int(input("Do you want to play against a bot?"))
-    difficultyLevel = input("What difficulty? [lower case letters only]  ")
-    if difficultyLevel == "easy" or difficultyLevel == "medium" or difficultyLevel == "hard":
+    versusbot = str(input("Do you want to play against a bot?  "))
+    difficultyLevel = input("What difficulty?  ")
+    if difficultyLevel.lower() in ["easy","medium","hard"]:
 
-        questionAmount = int(input("How many questions do you want?  "))
+        questionAmount = int(input("How many questions do you want? [numbers only] "))
         if questionAmount <= 50 and questionAmount > 0:
         
             categoryDict = requests.get('https://opentdb.com/api_category.php').json()
@@ -116,15 +126,15 @@ def main():
             while questionAmount < 1 or questionAmount > 50:
                 questionAmount = int(input("How many questions do you want?  "))
             player_1.question(difficultyLevel, questionAmount, categoryChoice)
-            if versusbot == 1:
+            if versusbot.lower() in ["yes", "y", "yeah"]:
                 bot_1.question(difficultyLevel, questionAmount, categoryChoice)
             else:
                 print("You chose not to versus a bot")
-            if bot_1.correctAnswer > player_1.correctAnswer and versusbot == '1':
+            if bot_1.correctAnswer > player_1.correctAnswer and versusbot.lower() in ["yes", "y", "yeah"]:
                 print("The bot won and got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount) + " while you got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
-            elif player_1.correctAnswer > bot_1.correctAnswer and versusbot == '1':
+            elif player_1.correctAnswer > bot_1.correctAnswer and versusbot.lower() in ["yes", "y", "yeah"]:
                 print("You won and got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount) + " while the bot got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount))
-            elif player_1.correctAnswer == bot_1.correctAnswer and versusbot == '1':
+            elif player_1.correctAnswer == bot_1.correctAnswer and versusbot.lower() in ["yes", "y", "yeah"]:
                 print("You drew with the bot, both got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
         else:
             print("Please enter a number between one and 50")
