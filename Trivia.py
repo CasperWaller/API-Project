@@ -145,9 +145,12 @@ def main():
             if versusbot.lower() in ["yes", "y", "yeah"]: bot_1.questions(difficultyLevel, questionAmount, categoryChoice)
             else:   print("You chose not to versus a bot")
             
-            if bot_1.correctAnswer > player_1.correctAnswer and versusbot.lower() in ["yes", "y", "yeah"]: print("The bot won and got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount) + " while you got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
-            elif player_1.correctAnswer > bot_1.correctAnswer and versusbot.lower() in ["yes", "y", "yeah"]: print("You won and got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount) + " while the bot got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount))
-            elif player_1.correctAnswer == bot_1.correctAnswer and versusbot.lower() in ["yes", "y", "yeah"]: print("You drew with the bot, both got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
+            if bot_1.correctAnswer > player_1.correctAnswer and versusbot.lower() in ["yes", "y", "yeah"]: 
+                print("The bot won and got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount) + " while you got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
+            elif player_1.correctAnswer > bot_1.correctAnswer and versusbot.lower() in ["yes", "y", "yeah"]: 
+                print("You won and got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount) + " while the bot got " + str(bot_1.correctAnswer) + "/" + str(bot_1.questionCount))
+            elif player_1.correctAnswer == bot_1.correctAnswer and versusbot.lower() in ["yes", "y", "yeah"]: 
+                print("You drew with the bot, both got " + str(player_1.correctAnswer) + "/" + str(player_1.questionCount))
         
         else:
             print("Please enter a number between one and 50")
