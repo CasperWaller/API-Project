@@ -6,7 +6,13 @@ A trivia game created with python and a trivia API
 
 ### Application description
 
-This program is a simulation of a trivia game. In this program you can choose between answering questions on your own or competing against a bot which can be set to either easy, medium or hard.
+This program is a simulation of a trivia game. When you run the program, the computer will ask you if you want to play versus a bot. If you choose yes, a bot will randomly answer questions. If you choose no, the bot will not participate. The program will ask you what difficulty you want. You can either choose easy, medium or hard. Then the program will ask you how many questions you want. If you choose anything less than one or more than 50 the program will repeat the question until you choose an appropriate amount.
+
+The categories will be presented with a designated number. The program will ask you what category you want to choose. You answer by writing the number next to the corresponding category. The first question will pop up with four different alternatives for an answer. The answers will have a number next to them, you answer by writing the corresponding number next to the answer. You will get an instant response if you have gotten the question right or wrong. If you got it wrong the program will print the correct answer. After every answer your score will be printed. 
+
+When you have answered every question the bot will take its turn. The bot will answer the questions randomly.
+
+The program will then compare your result and the bots result and print who won.
 
 ### Installation instructions
 
