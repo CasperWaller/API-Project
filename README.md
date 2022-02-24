@@ -20,6 +20,75 @@ pip install requests
 
 When you run the program, the computer will ask you what difficulty you want the questions to be. You can either choose easy, medium or hard. The question pops up and you answer it, if you answer correctly you get a message that says "Correct answer!". If you answer incorrectly you get a message that says "Incorrect answer!" and the correct answer will show up. There will be 10 different questions.
 
+```powershell
+Do you want to play against a bot?  yes
+
+What difficulty?  easy
+
+How many questions do you want? [numbers only] 2
+
+General Knowledge - 9
+Entertainment: Film - 11
+Entertainment: Music - 12
+Entertainment: Video Games - 15
+Entertainment: Board Games - 16
+Science & Nature - 17
+Science: Mathematics - 19
+Sports - 21
+Geography - 22
+History - 23
+Politics - 24
+Animals - 27
+
+What category do you want to choose?  9
+
+What do the letters in the GMT time zone stand for?
+1. Global Meridian Time
+2. General Median Time
+3. Glasgow Man Time
+4. Greenwich Mean Time
+Your answer: 4
+Correct answer!
+You got 1/1 questions correct
+
+According to Sherlock Holmes, "If you eliminate the impossible, whatever remains, however improbable, must be the..."
+1. Source
+2. Cause
+3. Truth
+4. Answer
+
+Your answer: 2
+Incorrect answer!
+The correct answer is Truth
+You got 1/2 questions correct
+
+The bots turn
+
+Which best selling toy of 1983 caused hysteria, resulting in riots breaking out in stores?
+1. Transformers
+2. Cabbage Patch Kids
+3. Rubik's Cube
+4. Care Bears
+
+The bot answered: Cabbage Patch Kids
+The bot got the question right
+The bot got 1/1 questions correct
+
+What was the first ever London Underground line to be built?
+1. Metropolitan Line
+2. Circle Line
+3. Victoria Line
+4. Bakerloo Line
+
+The bot answered: Metropolitan Line
+The bot got the question right
+
+The bot got 2/2 questions correct
+
+The bot won and got 2/2 while you got 1/2
+
+```
+
 ## Issue tracker
 
 None so far
