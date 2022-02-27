@@ -4,6 +4,9 @@ A trivia game created with python and a trivia API
 
 ## Description
 
+### UML
+![image](https://user-images.githubusercontent.com/96416398/155903470-eb4e6e02-0d46-493f-8c37-987905aa95ea.png)
+
 ### Application description
 
 This program is a simulation of a trivia game. When you run the program, the computer will ask you if you want to play versus a bot. If you choose yes, a bot will randomly answer questions. If you choose no, the bot will not participate. The program will ask you what difficulty you want. You can either choose easy, medium or hard. Then the program will ask you how many questions you want. If you choose anything less than one or more than 50 the program will repeat the question until you choose an appropriate amount.
