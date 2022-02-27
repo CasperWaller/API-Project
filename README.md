@@ -2,6 +2,15 @@
 
 A trivia game created with python and a trivia API
 
+## Table of contents
+- Description
+- Issue tracker
+- Code conventions
+- To do
+- Contributors
+-  License
+-  Contact
+
 ## Description
 
 ### UML
